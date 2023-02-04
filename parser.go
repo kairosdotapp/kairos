@@ -25,6 +25,7 @@ const (
 type parser struct {
 	scanner *bufio.Scanner
 	state   parserState
+	currentEntry *entry
 }
 
 func newParser(scanner *bufio.Scanner) *parser {
@@ -34,8 +35,25 @@ func newParser(scanner *bufio.Scanner) *parser {
 func (p *parser) scan() (*entry, error) {
 	for p.scanner.Scan() {
 		t := p.scanner.Text()
-		c := reDate.FindString(t)
-		if len(c) > 0 {fmt.Println("Date matches: ", c)}
+		d := reDate.FindString(t)
+
+		if len(d) > 0 {
+			// we found a new entry, do we have a current one?
+			if p.currentEntry != nil {
+				r := *p.currentEntry
+				p.currentEntry = &entry{date:d} 
+				fmt.Println("returning: ", r)
+				return &r, nil
+			}
+
+			p.currentEntry = &entry{date:d} 
+		}
+	}
+
+	if p.currentEntry != nil {
+		r := *p.currentEntry
+		p.currentEntry = nil
+		return &r, nil
 	}
 
 	if err := p.scanner.Err(); err != nil {
