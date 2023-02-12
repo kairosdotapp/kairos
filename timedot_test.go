@@ -33,7 +33,7 @@ time:bec:admin           3.25
 func TestParser(t *testing.T) {
 	s := strings.NewReader(testData)
 
-	exp := []entry{
+	exp := []timedotEntry{
 		{
 			date:    "2023-01-17",
 			account: "time:cust:a",
@@ -82,7 +82,7 @@ func TestParser(t *testing.T) {
 
 	p := newParser(scanner)
 
-	var entries []entry
+	var entries []timedotEntry
 
 	for {
 		e, err := p.scan()

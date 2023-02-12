@@ -7,27 +7,27 @@ import (
 	"strconv"
 )
 
-type entry struct {
+type timedotEntry struct {
 	date    string
 	account string
 	logs    []string
 	hours   float32
 }
 
-func (e *entry) setDate(d string) {
+func (e *timedotEntry) setDate(d string) {
 	e.date = d
 	e.account = ""
 	e.logs = []string{}
 	e.hours = 0
 }
 
-func (e *entry) setAccount(a string) {
+func (e *timedotEntry) setAccount(a string) {
 	e.account = a
 	e.logs = []string{}
 	e.hours = 0
 }
 
-func (e *entry) hasDate() bool {
+func (e *timedotEntry) hasDate() bool {
 	if e.date != "" {
 		return true
 	}
@@ -35,7 +35,7 @@ func (e *entry) hasDate() bool {
 	return false
 }
 
-func (e *entry) hasAccount() bool {
+func (e *timedotEntry) hasAccount() bool {
 	if e.account != "" {
 		return true
 	}
@@ -43,14 +43,14 @@ func (e *entry) hasAccount() bool {
 	return false
 }
 
-func (e *entry) clearDate() {
+func (e *timedotEntry) clearDate() {
 	e.date = ""
 	e.account = ""
 	e.logs = []string{}
 	e.hours = 0
 }
 
-func (e *entry) clearAccount() {
+func (e *timedotEntry) clearAccount() {
 	e.account = ""
 	e.logs = []string{}
 	e.hours = 0
@@ -70,14 +70,14 @@ const (
 type parser struct {
 	scanner      *bufio.Scanner
 	state        parserState
-	currentEntry entry
+	currentEntry timedotEntry
 }
 
 func newParser(scanner *bufio.Scanner) *parser {
 	return &parser{scanner: scanner}
 }
 
-func (p *parser) scan() (*entry, error) {
+func (p *parser) scan() (*timedotEntry, error) {
 	for p.scanner.Scan() {
 		t := p.scanner.Text()
 
