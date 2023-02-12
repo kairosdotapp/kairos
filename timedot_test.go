@@ -10,9 +10,9 @@ import (
 	"github.com/kr/pretty"
 )
 
-var testData = `
+var testTimedotData = `
 2023-01-17 # Tues
-time:cust:a              2
+time:cust:a:proj1        2
   # meeting
   # work on updated rule
 time:bec:admin           5
@@ -28,15 +28,19 @@ time:cust:c              0.5
   # project setup
 time:bec:siot:go         2
 time:bec:admin           3.25
+
+2023-02-15 # Fri
+time:cust:a:onsite       8
+  # onsite training
 `
 
-func TestParser(t *testing.T) {
-	s := strings.NewReader(testData)
+func TestTimedotParser(t *testing.T) {
+	s := strings.NewReader(testTimedotData)
 
 	exp := []timedotEntry{
 		{
 			date:    "2023-01-17",
-			account: "time:cust:a",
+			account: "time:cust:a:proj1",
 			logs:    []string{"meeting", "work on updated rule"},
 			hours:   2,
 		},
@@ -75,6 +79,12 @@ func TestParser(t *testing.T) {
 			account: "time:bec:admin",
 			logs:    []string{},
 			hours:   3.25,
+		},
+		{
+			date:    "2023-02-15",
+			account: "time:cust:a:onsite",
+			logs:    []string{"onsite training"},
+			hours:   8,
 		},
 	}
 
