@@ -59,11 +59,7 @@ func TestRateFind(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		r, ok := rates.find(test.account, test.user)
-		if !ok {
-			pretty.Printf("did not find expected rate for %v\n", test)
-			t.Fatal()
-		}
+		r := rates.find(test.account, test.user)
 
 		if r != test.exp {
 			pretty.Printf("rate for %v did not match, got: %v\n",

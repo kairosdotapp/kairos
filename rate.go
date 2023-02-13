@@ -46,7 +46,7 @@ func (r *rate) match(account string, user string) int {
 
 type rates []rate
 
-func (r *rates) find(account string, user string) (float32, bool) {
+func (r *rates) find(account string, user string) float32 {
 	var ret rate
 	var score int
 
@@ -58,11 +58,7 @@ func (r *rates) find(account string, user string) (float32, bool) {
 		}
 	}
 
-	if score <= 0 {
-		return 0, false
-	}
-
-	return ret.Rate, true
+	return ret.Rate
 }
 
 func parseRates(r io.Reader) (rates, error) {
