@@ -53,10 +53,10 @@ func (e *entry) clearAccount() {
 
 type entries []entry
 
-func (tds *entries) populateCost(r rates, user string) error {
-	for i, td := range *tds {
-		(*tds)[i].cost = r.find(td.account, user) * td.hours
-		(*tds)[i].user = user
+func (es *entries) populateCost(r rates, user string) error {
+	for i, e := range *es {
+		(*es)[i].cost = r.find(e.account, user) * e.hours
+		(*es)[i].user = user
 	}
 
 	return nil
