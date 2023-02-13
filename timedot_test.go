@@ -36,7 +36,7 @@ time:cust:a:onsite       8
 func TestTimedotParser(t *testing.T) {
 	s := strings.NewReader(testTimedotData)
 
-	exp := timedotEntrys{
+	exp := timedots{
 		{
 			date:    "2023-01-17",
 			account: "time:cust:a:proj1",

@@ -8,27 +8,28 @@ import (
 	"strconv"
 )
 
-type timedotEntry struct {
+type timedot struct {
 	date    string
 	account string
 	logs    []string
 	hours   float32
+	cost    float32
 }
 
-func (e *timedotEntry) setDate(d string) {
+func (e *timedot) setDate(d string) {
 	e.date = d
 	e.account = ""
 	e.logs = []string{}
 	e.hours = 0
 }
 
-func (e *timedotEntry) setAccount(a string) {
+func (e *timedot) setAccount(a string) {
 	e.account = a
 	e.logs = []string{}
 	e.hours = 0
 }
 
-func (e *timedotEntry) hasDate() bool {
+func (e *timedot) hasDate() bool {
 	if e.date != "" {
 		return true
 	}
@@ -36,7 +37,7 @@ func (e *timedotEntry) hasDate() bool {
 	return false
 }
 
-func (e *timedotEntry) hasAccount() bool {
+func (e *timedot) hasAccount() bool {
 	if e.account != "" {
 		return true
 	}
@@ -44,20 +45,20 @@ func (e *timedotEntry) hasAccount() bool {
 	return false
 }
 
-func (e *timedotEntry) clearDate() {
+func (e *timedot) clearDate() {
 	e.date = ""
 	e.account = ""
 	e.logs = []string{}
 	e.hours = 0
 }
 
-func (e *timedotEntry) clearAccount() {
+func (e *timedot) clearAccount() {
 	e.account = ""
 	e.logs = []string{}
 	e.hours = 0
 }
 
-type timedotEntrys []timedotEntry
+type timedots []timedot
 
 var reDate = regexp.MustCompile(`^\d{4}-\d{2}-\d{2}`)
 var reAccount = regexp.MustCompile(`^(time\S*)\s*(([0-9]*[.])?[0-9]+)`)
@@ -73,15 +74,15 @@ const (
 type timedotParser struct {
 	scanner      *bufio.Scanner
 	state        timedotParserState
-	currentEntry timedotEntry
+	currentEntry timedot
 }
 
 func newTimedotParser(r io.Reader) *timedotParser {
 	return &timedotParser{scanner: bufio.NewScanner(r)}
 }
 
-func (p *timedotParser) scan() (timedotEntrys, error) {
-	var ret timedotEntrys
+func (p *timedotParser) scan() (timedots, error) {
+	var ret timedots
 
 	for {
 		e, err := p.scanEntry()
@@ -100,7 +101,7 @@ func (p *timedotParser) scan() (timedotEntrys, error) {
 	return ret, nil
 }
 
-func (p *timedotParser) scanEntry() (*timedotEntry, error) {
+func (p *timedotParser) scanEntry() (*timedot, error) {
 	for p.scanner.Scan() {
 		t := p.scanner.Text()
 
