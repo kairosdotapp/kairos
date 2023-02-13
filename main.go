@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"log"
 	"os"
@@ -17,9 +16,7 @@ func main() {
 
 	defer f.Close()
 
-	scanner := bufio.NewScanner(f)
-
-	p := newTimedotParser(scanner)
+	p := newTimedotParser(f)
 
 	for {
 		e, err := p.scan()

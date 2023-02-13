@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"reflect"
 	"strings"
@@ -37,7 +36,7 @@ time:cust:a:onsite       8
 func TestTimedotParser(t *testing.T) {
 	s := strings.NewReader(testTimedotData)
 
-	exp := []timedotEntry{
+	exp := timedotEntrys{
 		{
 			date:    "2023-01-17",
 			account: "time:cust:a:proj1",
@@ -88,24 +87,11 @@ func TestTimedotParser(t *testing.T) {
 		},
 	}
 
-	scanner := bufio.NewScanner(s)
+	p := newTimedotParser(s)
 
-	p := newTimedotParser(scanner)
-
-	var entries []timedotEntry
-
-	for {
-		e, err := p.scan()
-
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		if e == nil {
-			break
-		}
-
-		entries = append(entries, *e)
+	entries, err := p.scan()
+	if err != nil {
+		t.Fatal("Error scanning: ", err)
 	}
 
 	if len(entries) != len(exp) {

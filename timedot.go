@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"regexp"
 	"strconv"
 )
@@ -56,6 +57,8 @@ func (e *timedotEntry) clearAccount() {
 	e.hours = 0
 }
 
+type timedotEntrys []timedotEntry
+
 var reDate = regexp.MustCompile(`^\d{4}-\d{2}-\d{2}`)
 var reAccount = regexp.MustCompile(`^(time\S*)\s*(([0-9]*[.])?[0-9]+)`)
 var reLog = regexp.MustCompile(`^  #\s*(\S+.*)`)
@@ -73,11 +76,31 @@ type timedotParser struct {
 	currentEntry timedotEntry
 }
 
-func newTimedotParser(scanner *bufio.Scanner) *timedotParser {
-	return &timedotParser{scanner: scanner}
+func newTimedotParser(r io.Reader) *timedotParser {
+	return &timedotParser{scanner: bufio.NewScanner(r)}
 }
 
-func (p *timedotParser) scan() (*timedotEntry, error) {
+func (p *timedotParser) scan() (timedotEntrys, error) {
+	var ret timedotEntrys
+
+	for {
+		e, err := p.scanEntry()
+
+		if err != nil {
+			return nil, err
+		}
+
+		if e == nil {
+			break
+		}
+
+		ret = append(ret, *e)
+	}
+
+	return ret, nil
+}
+
+func (p *timedotParser) scanEntry() (*timedotEntry, error) {
 	for p.scanner.Scan() {
 		t := p.scanner.Text()
 
