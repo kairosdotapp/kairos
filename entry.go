@@ -1,5 +1,7 @@
 package main
 
+import "strings"
+
 type entry struct {
 	date    string
 	account string
@@ -60,4 +62,17 @@ func (es *entries) populateCost(r rates, user string) error {
 	}
 
 	return nil
+}
+
+// returns entries where account param matches beginning of entry account field
+func (es *entries) filter(account string) entries {
+	var ret entries
+
+	for _, e := range *es {
+		if strings.HasPrefix(e.account, account) {
+			ret = append(ret, e)
+		}
+	}
+
+	return ret
 }
