@@ -1,9 +1,12 @@
 package main
 
-import "strings"
+import (
+	"strings"
+	"time"
+)
 
 type entry struct {
-	date    string
+	date    time.Time
 	account string
 	logs    []string
 	hours   float32
@@ -11,7 +14,7 @@ type entry struct {
 	cost    float32
 }
 
-func (e *entry) setDate(d string) {
+func (e *entry) setDate(d time.Time) {
 	e.date = d
 	e.account = ""
 	e.logs = []string{}
@@ -25,7 +28,7 @@ func (e *entry) setAccount(a string) {
 }
 
 func (e *entry) hasDate() bool {
-	if e.date != "" {
+	if !e.date.IsZero() {
 		return true
 	}
 
@@ -41,7 +44,7 @@ func (e *entry) hasAccount() bool {
 }
 
 func (e *entry) clearDate() {
-	e.date = ""
+	e.date = time.Time{}
 	e.account = ""
 	e.logs = []string{}
 	e.hours = 0
@@ -65,7 +68,7 @@ func (es *entries) populateCost(r rates, user string) error {
 }
 
 // returns entries where account param matches beginning of entry account field
-func (es *entries) filter(account string) entries {
+func (es *entries) filterAccount(account string) entries {
 	var ret entries
 
 	for _, e := range *es {
@@ -74,5 +77,22 @@ func (es *entries) filter(account string) entries {
 		}
 	}
 
+	return ret
+}
+
+func (es *entries) filterDate(start, end time.Time) entries {
+	var ret entries
+
+	for _, e := range *es {
+		if e.date.Before(start) {
+			continue
+		}
+
+		if e.date.After(end) {
+			continue
+		}
+
+		ret = append(ret, e)
+	}
 	return ret
 }

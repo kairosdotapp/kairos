@@ -6,6 +6,7 @@ import (
 	"io"
 	"regexp"
 	"strconv"
+	"time"
 )
 
 var reDate = regexp.MustCompile(`^\d{4}-\d{2}-\d{2}`)
@@ -56,8 +57,12 @@ func (p *timedotParser) scanEntry() (*entry, error) {
 		d := reDate.FindString(t)
 		if len(d) > 0 {
 			// we found a new entry, do we have a current one?
+			dP, err := time.Parse(time.DateOnly, d)
+			if err != nil {
+				return nil, fmt.Errorf("Error parsing date: %v: %v", d, err)
+			}
 			ret := p.currentEntry
-			p.currentEntry.setDate(d)
+			p.currentEntry.setDate(dP)
 
 			if ret.hasDate() {
 				return &ret, nil
