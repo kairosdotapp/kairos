@@ -55,7 +55,8 @@ type entries []entry
 
 func (tds *entries) populateCost(r rates, user string) error {
 	for i, td := range *tds {
-		(*tds)[i].cost = r.find(td.account, user)
+		(*tds)[i].cost = r.find(td.account, user) * td.hours
+		(*tds)[i].user = user
 	}
 
 	return nil
