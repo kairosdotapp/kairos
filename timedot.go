@@ -60,24 +60,24 @@ var reDate = regexp.MustCompile(`^\d{4}-\d{2}-\d{2}`)
 var reAccount = regexp.MustCompile(`^(time\S*)\s*(([0-9]*[.])?[0-9]+)`)
 var reLog = regexp.MustCompile(`^  #\s*(\S+.*)`)
 
-type parserState int
+type timedotParserState int
 
 const (
-	parserStateNone parserState = iota
+	parserStateNone timedotParserState = iota
 	parserStateEntry
 )
 
-type parser struct {
+type timedotParser struct {
 	scanner      *bufio.Scanner
-	state        parserState
+	state        timedotParserState
 	currentEntry timedotEntry
 }
 
-func newParser(scanner *bufio.Scanner) *parser {
-	return &parser{scanner: scanner}
+func newTimedotParser(scanner *bufio.Scanner) *timedotParser {
+	return &timedotParser{scanner: scanner}
 }
 
-func (p *parser) scan() (*timedotEntry, error) {
+func (p *timedotParser) scan() (*timedotEntry, error) {
 	for p.scanner.Scan() {
 		t := p.scanner.Text()
 

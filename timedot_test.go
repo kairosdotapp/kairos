@@ -90,7 +90,7 @@ func TestTimedotParser(t *testing.T) {
 
 	scanner := bufio.NewScanner(s)
 
-	p := newParser(scanner)
+	p := newTimedotParser(scanner)
 
 	var entries []timedotEntry
 

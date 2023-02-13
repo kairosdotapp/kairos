@@ -19,7 +19,7 @@ func main() {
 
 	scanner := bufio.NewScanner(f)
 
-	p := newParser(scanner)
+	p := newTimedotParser(scanner)
 
 	for {
 		e, err := p.scan()
