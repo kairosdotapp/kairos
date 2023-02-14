@@ -1,34 +1,37 @@
 package main
 
 import (
+	"fmt"
+	"html/template"
+	"os"
 	"strings"
 	"time"
 )
 
 type entry struct {
-	date    time.Time
-	account string
-	logs    []string
-	hours   float32
-	user    string
-	cost    float32
+	Date    time.Time
+	Account string
+	Logs    []string
+	Hours   float32
+	User    string
+	Cost    float32
 }
 
 func (e *entry) setDate(d time.Time) {
-	e.date = d
-	e.account = ""
-	e.logs = []string{}
-	e.hours = 0
+	e.Date = d
+	e.Account = ""
+	e.Logs = []string{}
+	e.Hours = 0
 }
 
 func (e *entry) setAccount(a string) {
-	e.account = a
-	e.logs = []string{}
-	e.hours = 0
+	e.Account = a
+	e.Logs = []string{}
+	e.Hours = 0
 }
 
 func (e *entry) hasDate() bool {
-	if !e.date.IsZero() {
+	if !e.Date.IsZero() {
 		return true
 	}
 
@@ -36,7 +39,7 @@ func (e *entry) hasDate() bool {
 }
 
 func (e *entry) hasAccount() bool {
-	if e.account != "" {
+	if e.Account != "" {
 		return true
 	}
 
@@ -44,24 +47,24 @@ func (e *entry) hasAccount() bool {
 }
 
 func (e *entry) clearDate() {
-	e.date = time.Time{}
-	e.account = ""
-	e.logs = []string{}
-	e.hours = 0
+	e.Date = time.Time{}
+	e.Account = ""
+	e.Logs = []string{}
+	e.Hours = 0
 }
 
 func (e *entry) clearAccount() {
-	e.account = ""
-	e.logs = []string{}
-	e.hours = 0
+	e.Account = ""
+	e.Logs = []string{}
+	e.Hours = 0
 }
 
 type entries []entry
 
 func (es *entries) populateCost(r rates, user string) error {
 	for i, e := range *es {
-		(*es)[i].cost = r.find(e.account, user) * e.hours
-		(*es)[i].user = user
+		(*es)[i].Cost = r.find(e.Account, user) * e.Hours
+		(*es)[i].User = user
 	}
 
 	return nil
@@ -72,7 +75,7 @@ func (es *entries) filterAccount(account string) entries {
 	var ret entries
 
 	for _, e := range *es {
-		if strings.HasPrefix(e.account, account) {
+		if strings.HasPrefix(e.Account, account) {
 			ret = append(ret, e)
 		}
 	}
@@ -84,15 +87,46 @@ func (es *entries) filterDate(start, end time.Time) entries {
 	var ret entries
 
 	for _, e := range *es {
-		if e.date.Before(start) {
+		if e.Date.Before(start) {
 			continue
 		}
 
-		if e.date.After(end) {
+		if e.Date.After(end) {
 			continue
 		}
 
 		ret = append(ret, e)
 	}
 	return ret
+}
+
+type invoiceData struct {
+	Entries entries
+}
+
+func (es *entries) invoice() (string, error) {
+	f, err := os.ReadFile("invoice.tpl")
+	if err != nil {
+		return "", fmt.Errorf("Error reading file: %v", err)
+	}
+
+	t := template.New("invoice")
+
+	t, err = t.Parse(string(f))
+	if err != nil {
+		return "", fmt.Errorf("Error parsing template: %v", err)
+	}
+
+	var ret strings.Builder
+
+	data := invoiceData{
+		Entries: *es,
+	}
+
+	err = t.Execute(&ret, data)
+	if err != nil {
+		return "", fmt.Errorf("Error applying template: %v", err)
+	}
+
+	return "", nil
 }

@@ -23,24 +23,7 @@ func testEntries(t *testing.T) entries {
 	return entries
 }
 
-func compareEntries(t *testing.T, exp, got entries) {
-	if len(exp) != len(got) {
-		t.Fatalf("not same number of enries, exp: %v, got: %v", len(exp), len(got))
-	}
-	if !reflect.DeepEqual(exp, got) {
-		for i := range exp {
-			if !reflect.DeepEqual(exp[i], got[i]) {
-				fmt.Println("Failed at index: ", i)
-				pretty.Println("exp: ", exp[i], exp[i].date.Format(time.DateOnly))
-				pretty.Println("got: ", got[i], got[i].date.Format(time.DateOnly))
-			}
-		}
-		t.Fatal("did not get expected result")
-	}
-
-}
-
-func TestPopulateCost(t *testing.T) {
+func testEntriesWithCost(t *testing.T) entries {
 	entries := testEntries(t)
 
 	rates, err := parseRates(strings.NewReader(testRateData))
@@ -53,13 +36,36 @@ func TestPopulateCost(t *testing.T) {
 		t.Fatal("Error populating cost: ", err)
 	}
 
-	if entries[0].user != "cbrake" {
+	return entries
+}
+
+func compareEntries(t *testing.T, exp, got entries) {
+	if len(exp) != len(got) {
+		t.Fatalf("not same number of enries, exp: %v, got: %v", len(exp), len(got))
+	}
+	if !reflect.DeepEqual(exp, got) {
+		for i := range exp {
+			if !reflect.DeepEqual(exp[i], got[i]) {
+				fmt.Println("Failed at index: ", i)
+				pretty.Println("exp: ", exp[i], exp[i].Date.Format(time.DateOnly))
+				pretty.Println("got: ", got[i], got[i].Date.Format(time.DateOnly))
+			}
+		}
+		t.Fatal("did not get expected result")
+	}
+
+}
+
+func TestPopulateCost(t *testing.T) {
+	entries := testEntriesWithCost(t)
+
+	if entries[0].User != "cbrake" {
 		t.Fatal("User is not correct")
 	}
 
-	if entries[0].cost != 160 {
+	if entries[0].Cost != 160 {
 		t.Fatalf("Cost is not correct, exp %v, got %v", 160,
-			entries[0].cost)
+			entries[0].Cost)
 	}
 }
 
@@ -70,16 +76,16 @@ func TestFilterAccount(t *testing.T) {
 
 	exp := entries{
 		{
-			date:    t0117,
-			account: "time:cust:a:proj1",
-			logs:    []string{"meeting", "work on updated rule"},
-			hours:   2,
+			Date:    t0117,
+			Account: "time:cust:a:proj1",
+			Logs:    []string{"meeting", "work on updated rule"},
+			Hours:   2,
 		},
 		{
-			date:    t0215,
-			account: "time:cust:a:onsite",
-			logs:    []string{"onsite training"},
-			hours:   8,
+			Date:    t0215,
+			Account: "time:cust:a:onsite",
+			Logs:    []string{"onsite training"},
+			Hours:   8,
 		},
 	}
 	compareEntries(t, exp, filtered)
@@ -95,12 +101,23 @@ func TestFilterDate(t *testing.T) {
 
 	exp := entries{
 		{
-			date:    t0215,
-			account: "time:cust:a:onsite",
-			logs:    []string{"onsite training"},
-			hours:   8,
+			Date:    t0215,
+			Account: "time:cust:a:onsite",
+			Logs:    []string{"onsite training"},
+			Hours:   8,
 		},
 	}
 
 	compareEntries(t, exp, filtered)
+}
+
+func TestInvoice(t *testing.T) {
+	entries := testEntriesWithCost(t)
+
+	invoice, err := entries.invoice()
+	if err != nil {
+		t.Fatal("Error creating invoice: ", err)
+	}
+
+	fmt.Println("CLIFF: invoice: ", invoice)
 }

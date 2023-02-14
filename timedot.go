@@ -82,7 +82,7 @@ func (p *timedotParser) scanEntry() (*entry, error) {
 				if err != nil {
 					return nil, fmt.Errorf("Error parsing hours: %v", err)
 				}
-				p.currentEntry.hours = float32(h)
+				p.currentEntry.Hours = float32(h)
 			}
 
 			if ret.hasAccount() {
@@ -94,7 +94,7 @@ func (p *timedotParser) scanEntry() (*entry, error) {
 
 		lMatches := reLog.FindStringSubmatch(t)
 		if len(lMatches) >= 2 {
-			p.currentEntry.logs = append(p.currentEntry.logs, lMatches[1])
+			p.currentEntry.Logs = append(p.currentEntry.Logs, lMatches[1])
 		}
 	}
 
