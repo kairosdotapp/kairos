@@ -10,13 +10,33 @@
     </head>
     <body>
         <header>
-            <h1>Invoice</h1>
-            Invoice {{ .Number }}
+            <h2>Invoice</h2>
         </header>
         <main>
             <section>
-                <h2>To:</h2>
-                Customer: CustA
+                <div style="display: flex;">
+                    <div>
+                        BEC Systems
+                        <br/>
+                        15000 Warwick Rd.
+                        <br/>
+                        Marshallville, OH  44645
+                        <br/>
+                    </div>
+                </div>
+                <br/>
+                <div style="display: flex; justify-content: space-between">
+                    <b>Invoice #{{ .Number }}</b>
+                    {{ .Date }}
+                </div>
+                <br/>
+                To:
+                <br/>
+                {{ .Customer.Name }}
+                <br/>
+                {{ .Customer.Address }}
+                <br/>
+                {{ .Customer.City }}, {{ .Customer.State }} {{ .Customer.Zip }}
             </section>
             <section>
                 <table class="table-auto">
@@ -49,12 +69,16 @@
                 </table>
                 Total hours: <b>{{ .Hours }}</b>
                 <br/>
-                Total cost: <b>${{ .Cost }}</b>
+                <br/>
+                <b>Amount due: ${{ .Cost }}</b>
                 <br/>
             </section>
         </main>
         <footer>
             <b>Thank you for your valued business!</b>
+            <br/>
+            <br/>
+            <img src="http://bec-systems.com/site/wp-content/uploads/2020/03/bec_logo_blue_146x48-1.png"/>
         </footer>
     </body>
 </html>

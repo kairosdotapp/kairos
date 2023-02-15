@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"reflect"
 	"strings"
 	"testing"
@@ -110,15 +109,4 @@ func TestFilterDate(t *testing.T) {
 	}
 
 	compareEntries(t, exp, filtered)
-}
-
-func TestInvoice(t *testing.T) {
-	entries := testEntriesWithCost(t)
-
-	invoice, err := entries.invoice()
-	if err != nil {
-		t.Fatal("Error creating invoice: ", err)
-	}
-
-	os.WriteFile("invoice.html", []byte(invoice), 0644)
 }
