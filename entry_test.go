@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"reflect"
 	"strings"
 	"testing"
@@ -118,6 +119,8 @@ func TestInvoice(t *testing.T) {
 	if err != nil {
 		t.Fatal("Error creating invoice: ", err)
 	}
+
+	os.WriteFile("invoice.html", []byte(invoice), 0644)
 
 	fmt.Println("CLIFF: invoice: ", invoice)
 }

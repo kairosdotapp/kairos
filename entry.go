@@ -101,7 +101,33 @@ func (es *entries) filterDate(start, end time.Time) entries {
 }
 
 type invoiceData struct {
-	Entries entries
+	Entries invoiceEntries
+}
+
+type invoiceEntry struct {
+	Date    string
+	Account string
+	Logs    []string
+	Hours   float32
+	User    string
+	Cost    float32
+}
+
+type invoiceEntries []invoiceEntry
+
+func newInvoiceEntries(in entries) invoiceEntries {
+	ret := make(invoiceEntries, len(in))
+
+	for i, e := range in {
+		ret[i].Date = e.Date.Format(time.DateOnly)
+		ret[i].Account = e.Account
+		ret[i].Logs = e.Logs
+		ret[i].Hours = e.Hours
+		ret[i].User = e.User
+		ret[i].Cost = e.Cost
+	}
+
+	return ret
 }
 
 func (es *entries) invoice() (string, error) {
@@ -120,7 +146,7 @@ func (es *entries) invoice() (string, error) {
 	var ret strings.Builder
 
 	data := invoiceData{
-		Entries: *es,
+		Entries: newInvoiceEntries(*es),
 	}
 
 	err = t.Execute(&ret, data)
@@ -128,5 +154,5 @@ func (es *entries) invoice() (string, error) {
 		return "", fmt.Errorf("Error applying template: %v", err)
 	}
 
-	return "", nil
+	return ret.String(), nil
 }
