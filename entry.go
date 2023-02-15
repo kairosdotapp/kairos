@@ -100,8 +100,27 @@ func (es *entries) filterDate(start, end time.Time) entries {
 	return ret
 }
 
+func (es *entries) cost() float32 {
+	var ret float32
+	for _, e := range *es {
+		ret += e.Cost
+	}
+	return ret
+}
+
+func (es *entries) hours() float32 {
+	var ret float32
+	for _, e := range *es {
+		ret += e.Hours
+	}
+	return ret
+}
+
 type invoiceData struct {
+	Number  int
 	Entries invoiceEntries
+	Hours   float32
+	Cost    float32
 }
 
 type invoiceEntry struct {
@@ -146,7 +165,10 @@ func (es *entries) invoice() (string, error) {
 	var ret strings.Builder
 
 	data := invoiceData{
+		Number:  1023,
 		Entries: newInvoiceEntries(*es),
+		Cost:    es.cost(),
+		Hours:   es.hours(),
 	}
 
 	err = t.Execute(&ret, data)

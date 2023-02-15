@@ -121,6 +121,4 @@ func TestInvoice(t *testing.T) {
 	}
 
 	os.WriteFile("invoice.html", []byte(invoice), 0644)
-
-	fmt.Println("CLIFF: invoice: ", invoice)
 }
