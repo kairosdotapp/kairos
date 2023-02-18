@@ -10,7 +10,8 @@
     </head>
     <body>
         <header>
-            <h2>Invoice</h2>
+            <br/>
+            <img src="http://bec-systems.com/site/wp-content/uploads/2020/03/bec_logo_blue_146x48-1.png"/>
         </header>
         <main>
             <section>
@@ -78,7 +79,6 @@
             <b>Thank you for your valued business!</b>
             <br/>
             <br/>
-            <img src="http://bec-systems.com/site/wp-content/uploads/2020/03/bec_logo_blue_146x48-1.png"/>
         </footer>
     </body>
 </html>
