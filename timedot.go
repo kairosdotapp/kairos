@@ -30,26 +30,6 @@ func newTimedotParser(r io.Reader) *timedotParser {
 	return &timedotParser{scanner: bufio.NewScanner(r)}
 }
 
-func (p *timedotParser) scan() (entries, error) {
-	var ret entries
-
-	for {
-		e, err := p.scanEntry()
-
-		if err != nil {
-			return nil, err
-		}
-
-		if e == nil {
-			break
-		}
-
-		ret = append(ret, *e)
-	}
-
-	return ret, nil
-}
-
 func (p *timedotParser) scanEntry() (*entry, error) {
 	for p.scanner.Scan() {
 		t := p.scanner.Text()
@@ -109,4 +89,26 @@ func (p *timedotParser) scanEntry() (*entry, error) {
 	}
 
 	return nil, nil
+}
+
+func parseTimedot(r io.Reader) (entries, error) {
+	var ret entries
+
+	p := newTimedotParser(r)
+
+	for {
+		e, err := p.scanEntry()
+
+		if err != nil {
+			return nil, err
+		}
+
+		if e == nil {
+			break
+		}
+
+		ret = append(ret, *e)
+	}
+
+	return ret, nil
 }

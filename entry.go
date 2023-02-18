@@ -112,3 +112,8 @@ func (es *entries) hours() float32 {
 	}
 	return ret
 }
+
+// fuctions for sort
+func (es entries) Len() int           { return len(es) }
+func (es entries) Swap(i, j int)      { es[i], es[j] = es[j], es[i] }
+func (es entries) Less(i, j int) bool { return es[i].Date.Before(es[j].Date) }

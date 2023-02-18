@@ -13,9 +13,7 @@ import (
 func testEntries(t *testing.T) entries {
 	s := strings.NewReader(testTimedotData)
 
-	p := newTimedotParser(s)
-
-	entries, err := p.scan()
+	entries, err := parseTimedot(s)
 	if err != nil {
 		t.Fatal("Error scanning: ", err)
 	}
@@ -80,6 +78,12 @@ func TestFilterAccount(t *testing.T) {
 			Account: "time:cust:a:proj1",
 			Logs:    []string{"meeting", "work on updated rule"},
 			Hours:   2,
+		},
+		{
+			Date:    t0118,
+			Account: "time:cust:a:onsite",
+			Logs:    []string{"onsite training"},
+			Hours:   8,
 		},
 		{
 			Date:    t0215,

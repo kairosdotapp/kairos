@@ -10,7 +10,7 @@ func TestInvoice(t *testing.T) {
 	entries := testEntriesWithCost(t)
 	custs := testCustomers(t)
 
-	invoice, err := invoice(entries, custs, acnt, "2023-01", "")
+	invoice, err := invoice(1055, entries, custs, acnt, "2023-01", "")
 	if err != nil {
 		t.Fatal("Error creating invoice: ", err)
 	}

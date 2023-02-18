@@ -24,6 +24,8 @@ time:cust:c              0.5
   # project setup
 time:bec:siot:go         2
 time:bec:admin           3.25
+time:cust:a:onsite       8
+  # onsite training
 
 2023-02-15 # Fri
 time:cust:a:onsite       8
@@ -82,6 +84,12 @@ func TestTimedotParser(t *testing.T) {
 			Hours:   3.25,
 		},
 		{
+			Date:    t0118,
+			Account: "time:cust:a:onsite",
+			Logs:    []string{"onsite training"},
+			Hours:   8,
+		},
+		{
 			Date:    t0215,
 			Account: "time:cust:a:onsite",
 			Logs:    []string{"onsite training"},
@@ -89,9 +97,7 @@ func TestTimedotParser(t *testing.T) {
 		},
 	}
 
-	p := newTimedotParser(s)
-
-	entries, err := p.scan()
+	entries, err := parseTimedot(s)
 	if err != nil {
 		t.Fatal("Error scanning: ", err)
 	}

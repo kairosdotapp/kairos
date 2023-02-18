@@ -45,7 +45,7 @@ func newInvoiceEntries(in entries) invoiceEntries {
 
 // invoiceMonth is given in form of YYYY-MM
 // if date is "", then current date is used
-func invoice(es entries, custs customers, account, invoiceMonth, date string) (string, error) {
+func invoice(number int, es entries, custs customers, account, invoiceMonth, date string) (string, error) {
 	accountEntries := es.filterAccount(account)
 	start, err := time.Parse(time.DateOnly, invoiceMonth+"-01")
 	if err != nil {
@@ -78,7 +78,7 @@ func invoice(es entries, custs customers, account, invoiceMonth, date string) (s
 	}
 
 	data := invoiceData{
-		Number:   1023,
+		Number:   number,
 		Date:     date,
 		Customer: cust,
 		Entries:  newInvoiceEntries(accountEntries),
