@@ -46,7 +46,7 @@ func runInvoice(args []string) error {
 	flags := flag.NewFlagSet("invoice", flag.ExitOnError)
 	flagAccount := flags.String("account", "", "Account to process")
 	flagYearMonth := flags.String("month", "", "specify year and month: YYYY-MM")
-	flagDate := flags.String("data", "", "invoice date (YYYY-MM-DD). If blank, current date will be used.")
+	flagDate := flags.String("date", "", "invoice date (YYYY-MM-DD). If blank, current date will be used.")
 	flagUser := flags.String("user", "", "user time entries to use. If blank, all users will be processed.")
 	flagNumber := flags.Int("num", 0, "invoice #")
 
