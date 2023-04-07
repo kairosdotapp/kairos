@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 	"time"
 )
@@ -12,6 +13,10 @@ type entry struct {
 	Hours   float32
 	User    string
 	Cost    float32
+}
+
+func (e entry) String() string {
+	return fmt.Sprintf("%v %v %v %v %v", e.Date, e.Account, e.Hours, e.User, e.Cost)
 }
 
 func (e *entry) setDate(d time.Time) {
@@ -44,6 +49,14 @@ func (e *entry) clearDate() {
 
 type entries []entry
 
+func (es entries) String() string {
+	var ret string
+	for _, e := range es {
+		ret += e.String() + "\n"
+	}
+	return ret
+}
+
 func (es *entries) populateCost(r rates, user string) error {
 	for i, e := range *es {
 		(*es)[i].Cost = r.find(e.Account, user) * e.Hours
@@ -59,6 +72,8 @@ func (es *entries) filterAccount(account string) entries {
 
 	for _, e := range *es {
 		if strings.HasPrefix(e.Account, account) {
+			e.Account = strings.TrimPrefix(e.Account, account)
+			e.Account = strings.TrimPrefix(e.Account, ":")
 			ret = append(ret, e)
 		}
 	}
