@@ -9,17 +9,18 @@ import (
 )
 
 type invoiceData struct {
-	Date     string
-	Number   int
-	Entries  invoiceEntries
-	Hours    float32
-	Cost     float32
-	Customer customer
+	Date          string
+	Number        int
+	Entries       invoiceEntries
+	Hours         float32
+	Cost          float32
+	Customer      customer
+	ProjectTotals projectTotals
 }
 
 type invoiceEntry struct {
 	Date    string
-	Account string
+	Project string
 	Logs    []string
 	Hours   float32
 	User    string
@@ -33,7 +34,7 @@ func newInvoiceEntries(in entries) invoiceEntries {
 
 	for i, e := range in {
 		ret[i].Date = e.Date.Format(time.DateOnly)
-		ret[i].Account = e.Account
+		ret[i].Project = e.Account
 		ret[i].Logs = e.Logs
 		ret[i].Hours = e.Hours
 		ret[i].User = e.User
@@ -53,6 +54,8 @@ func invoice(number int, es entries, custs customers, account, invoiceMonth, dat
 	}
 	end := start.AddDate(0, 1, 0).Add(-time.Second)
 	accountEntries = accountEntries.filterDate(start, end)
+
+	projectTotals := accountEntries.projectTotals()
 
 	cust, ok := custs.find(account)
 	if !ok {
@@ -78,12 +81,13 @@ func invoice(number int, es entries, custs customers, account, invoiceMonth, dat
 	}
 
 	data := invoiceData{
-		Number:   number,
-		Date:     date,
-		Customer: cust,
-		Entries:  newInvoiceEntries(accountEntries),
-		Cost:     accountEntries.cost(),
-		Hours:    accountEntries.hours(),
+		Number:        number,
+		Date:          date,
+		Customer:      cust,
+		Entries:       newInvoiceEntries(accountEntries),
+		Cost:          accountEntries.cost(),
+		Hours:         accountEntries.hours(),
+		ProjectTotals: projectTotals,
 	}
 
 	err = t.Execute(&ret, data)

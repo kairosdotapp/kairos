@@ -98,6 +98,33 @@ func (es *entries) filterDate(start, end time.Time) entries {
 	return ret
 }
 
+type projectTotal struct {
+	Name  string
+	Hours float32
+}
+
+type projectTotals []projectTotal
+
+func (es *entries) projectTotals() projectTotals {
+	t := make(map[string]float32)
+	for _, e := range *es {
+		t[e.Account] = t[e.Account] + e.Hours
+	}
+
+	ret := make(projectTotals, len(t))
+
+	i := 0
+	for k, v := range t {
+		if k == "" {
+			k = "none"
+		}
+		ret[i] = projectTotal{k, v}
+		i++
+	}
+
+	return ret
+}
+
 func (es *entries) cost() float32 {
 	var ret float32
 	for _, e := range *es {
