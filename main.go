@@ -12,7 +12,7 @@ import (
 
 func main() {
 	flags := flag.NewFlagSet(os.Args[0], flag.ExitOnError)
-	fmt.Println("invoice-cli")
+	fmt.Println("kairos")
 	flags.Usage = func() {
 		fmt.Println("usage: siot [OPTION]... COMMAND [OPTION]...")
 		fmt.Println("Global options:")
