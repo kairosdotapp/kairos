@@ -28,29 +28,15 @@ func (e *entry) setAccount(a string) {
 }
 
 func (e *entry) hasDate() bool {
-	if !e.Date.IsZero() {
-		return true
-	}
-
-	return false
+	return !e.Date.IsZero()
 }
 
 func (e *entry) hasAccount() bool {
-	if e.Account != "" {
-		return true
-	}
-
-	return false
+	return e.Account != ""
 }
 
 func (e *entry) clearDate() {
 	e.Date = time.Time{}
-	e.Account = ""
-	e.Logs = []string{}
-	e.Hours = 0
-}
-
-func (e *entry) clearAccount() {
 	e.Account = ""
 	e.Logs = []string{}
 	e.Hours = 0
