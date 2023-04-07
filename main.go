@@ -22,7 +22,7 @@ func main() {
 		fmt.Println("  - invoice (create an invoice)")
 	}
 
-	flags.Parse(os.Args[1:])
+	_ = flags.Parse(os.Args[1:])
 
 	// extract sub command and its arguments
 	args := flags.Args()
@@ -50,7 +50,7 @@ func runInvoice(args []string) error {
 	flagUser := flags.String("user", "", "user time entries to use. If blank, all users will be processed.")
 	flagNumber := flags.Int("num", 0, "invoice #")
 
-	flags.Parse(args)
+	_ = flags.Parse(args)
 
 	if *flagYearMonth == "" {
 		flags.Usage()
