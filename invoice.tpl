@@ -43,8 +43,28 @@
                 <table class="table-auto">
                     <thead>
                         <tr>
+                            <th>Project</th>
+                            <th>Hours</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{- range $entry := .ProjectTotals }}
+                        <tr>
+                            <td>{{ $entry.Name }}</td>
+                            <td>{{ $entry.Hours }}</td>
+                        </tr>
+                        {{- end }}
+                    </tbody>
+                </table>
+                Total hours: <b>{{ .Hours }}</b>
+            </section>
+            <section>
+                <table class="table-auto">
+                    <thead>
+                        <tr>
                             <th>Date</th>
                             <th>Who</th>
+                            <th>Project</th>
                             <th>Description</th>
                             <th>Hours</th>
                             <th>Cost</th>
@@ -55,6 +75,7 @@
                         <tr>
                             <td>{{ $entry.Date }}</td>
                             <td>{{ $entry.User }}</td>
+                            <td>{{ $entry.Project }}</td>
                             <td>
                                 <ul>
                                     {{- range $log := $entry.Logs }}
@@ -68,7 +89,6 @@
                         {{- end }}
                     </tbody>
                 </table>
-                Total hours: <b>{{ .Hours }}</b>
                 <br/>
                 <br/>
                 <b>Amount due: ${{ .Cost }}</b>
