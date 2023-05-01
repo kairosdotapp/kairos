@@ -129,8 +129,11 @@ func runInvoice(args []string) error {
 		return fmt.Errorf("No log entries found")
 	}
 
+	accountDashes := strings.ReplaceAll(*flagAccount, ":", "-")
+
 	var start time.Time
 	var end time.Time
+	var invoiceName string
 
 	if *flagYearMonth != "" {
 		start, err = time.Parse(time.DateOnly, *flagYearMonth+"-01")
@@ -138,6 +141,7 @@ func runInvoice(args []string) error {
 			return fmt.Errorf("Error parsing invoice month: %v", err)
 		}
 		end = start.AddDate(0, 1, 0).Add(-time.Second)
+		invoiceName = fmt.Sprintf("%v_%v.html", *flagYearMonth, accountDashes)
 	} else if *flagBegin != "" {
 		start, err = time.Parse(time.DateOnly, *flagBegin)
 		if err != nil {
@@ -151,6 +155,11 @@ func runInvoice(args []string) error {
 		} else {
 			end = time.Now()
 		}
+
+		startT := start.Format("2006-01-02")
+		endT := end.Format("2006-01-02")
+
+		invoiceName = fmt.Sprintf("%v_%v_%v.html", startT, endT, accountDashes)
 	}
 
 	inv, err := invoice(*flagNumber, es, customers, *flagAccount, start, end, *flagDate)
@@ -158,10 +167,6 @@ func runInvoice(args []string) error {
 	if err != nil {
 		return fmt.Errorf("Error creating invoice: %v", err)
 	}
-
-	accountDashes := strings.ReplaceAll(*flagAccount, ":", "-")
-
-	invoiceName := fmt.Sprintf("%v_%v.html", *flagYearMonth, accountDashes)
 
 	err = os.WriteFile(invoiceName, []byte(inv), 0644)
 
