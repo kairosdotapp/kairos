@@ -46,13 +46,8 @@ func newInvoiceEntries(in entries) invoiceEntries {
 
 // invoiceMonth is given in form of YYYY-MM
 // if date is "", then current date is used
-func invoice(number int, es entries, custs customers, account, invoiceMonth, date string) (string, error) {
+func invoice(number int, es entries, custs customers, account string, start, end time.Time, date string) (string, error) {
 	accountEntries := es.filterAccount(account)
-	start, err := time.Parse(time.DateOnly, invoiceMonth+"-01")
-	if err != nil {
-		return "", fmt.Errorf("Error parsing invoice month: %v", err)
-	}
-	end := start.AddDate(0, 1, 0).Add(-time.Second)
 	accountEntries = accountEntries.filterDate(start, end)
 
 	projectTotals := accountEntries.projectTotals()

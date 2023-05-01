@@ -75,19 +75,19 @@ func TestFilterAccount(t *testing.T) {
 	exp := entries{
 		{
 			Date:    t0117,
-			Account: "time:cust:a:proj1",
+			Account: "proj1",
 			Logs:    []string{"meeting", "work on updated rule"},
 			Hours:   2,
 		},
 		{
 			Date:    t0118,
-			Account: "time:cust:a:onsite",
+			Account: "onsite",
 			Logs:    []string{"onsite training"},
 			Hours:   8,
 		},
 		{
 			Date:    t0215,
-			Account: "time:cust:a:onsite",
+			Account: "onsite",
 			Logs:    []string{"onsite training"},
 			Hours:   8,
 		},

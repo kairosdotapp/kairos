@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 	"testing"
+	"time"
 )
 
 func TestInvoice(t *testing.T) {
@@ -10,10 +11,13 @@ func TestInvoice(t *testing.T) {
 	entries := testEntriesWithCost(t)
 	custs := testCustomers(t)
 
-	invoice, err := invoice(1055, entries, custs, acnt, "2023-01", "")
+	start, _ := time.Parse(time.DateOnly, "2023-01-01")
+	end := start.AddDate(0, 1, 0).Add(-time.Second)
+
+	invoice, err := invoice(1055, entries, custs, acnt, start, end, "")
 	if err != nil {
 		t.Fatal("Error creating invoice: ", err)
 	}
 
-	os.WriteFile("invoice.html", []byte(invoice), 0644)
+	_ = os.WriteFile("invoice.html", []byte(invoice), 0644)
 }
