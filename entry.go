@@ -116,7 +116,10 @@ func (es *entries) projectTotals() projectTotals {
 	i := 0
 	for k, v := range t {
 		if k == "" {
-			k = "none"
+			k = "default"
+		}
+		if k == "nc" {
+			k = "no charge (nc)"
 		}
 		ret[i] = projectTotal{k, v}
 		i++
