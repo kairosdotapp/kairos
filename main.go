@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+	"time"
 )
 
 func main() {
@@ -49,12 +50,14 @@ func runInvoice(args []string) error {
 	flagDate := flags.String("date", "", "invoice date (YYYY-MM-DD). If blank, current date will be used.")
 	flagUser := flags.String("user", "", "user time entries to use. If blank, all users will be processed.")
 	flagNumber := flags.Int("num", 0, "invoice #")
+	flagBegin := flags.String("begin", "", "beginning date")
+	flagEnd := flags.String("end", "", "ending date")
 
 	_ = flags.Parse(args)
 
-	if *flagYearMonth == "" {
+	if *flagYearMonth == "" && *flagBegin == "" {
 		flags.Usage()
-		return fmt.Errorf("Error, must specify invoice month")
+		return fmt.Errorf("Error, must specify invoice month or beginning date")
 	}
 
 	fCustomers, err := os.Open("customers.csv")
@@ -126,7 +129,31 @@ func runInvoice(args []string) error {
 		return fmt.Errorf("No log entries found")
 	}
 
-	inv, err := invoice(*flagNumber, es, customers, *flagAccount, *flagYearMonth, *flagDate)
+	var start time.Time
+	var end time.Time
+
+	if *flagYearMonth != "" {
+		start, err = time.Parse(time.DateOnly, *flagYearMonth+"-01")
+		if err != nil {
+			return fmt.Errorf("Error parsing invoice month: %v", err)
+		}
+		end = start.AddDate(0, 1, 0).Add(-time.Second)
+	} else if *flagBegin != "" {
+		start, err = time.Parse(time.DateOnly, *flagBegin)
+		if err != nil {
+			return fmt.Errorf("Error parsing begin: %v", err)
+		}
+		if *flagEnd != "" {
+			end, err = time.Parse(time.DateOnly, *flagEnd)
+			if err != nil {
+				return fmt.Errorf("Error parsing end: %v", err)
+			}
+		} else {
+			end = time.Now()
+		}
+	}
+
+	inv, err := invoice(*flagNumber, es, customers, *flagAccount, start, end, *flagDate)
 
 	if err != nil {
 		return fmt.Errorf("Error creating invoice: %v", err)
