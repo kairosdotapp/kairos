@@ -52,6 +52,7 @@ func runInvoice(args []string) error {
 	flagNumber := flags.Int("num", 0, "invoice #")
 	flagBegin := flags.String("begin", "", "beginning date")
 	flagEnd := flags.String("end", "", "ending date")
+	flagTemplate := flags.String("template", "invoice.tpl", "invoice template to use")
 
 	_ = flags.Parse(args)
 
@@ -162,7 +163,7 @@ func runInvoice(args []string) error {
 		invoiceName = fmt.Sprintf("%v_%v_%v.html", startT, endT, accountDashes)
 	}
 
-	inv, err := invoice(*flagNumber, es, customers, *flagAccount, start, end, *flagDate)
+	inv, err := invoice(*flagNumber, es, customers, *flagAccount, start, end, *flagDate, *flagTemplate)
 
 	if err != nil {
 		return fmt.Errorf("Error creating invoice: %v", err)

@@ -46,7 +46,8 @@ func newInvoiceEntries(in entries) invoiceEntries {
 
 // invoiceMonth is given in form of YYYY-MM
 // if date is "", then current date is used
-func invoice(number int, es entries, custs customers, account string, start, end time.Time, date string) (string, error) {
+func invoice(number int, es entries, custs customers, account string, start, end time.Time,
+	date, tplFile string) (string, error) {
 	accountEntries := es.filterAccount(account)
 	accountEntries = accountEntries.filterDate(start, end)
 
@@ -57,7 +58,7 @@ func invoice(number int, es entries, custs customers, account string, start, end
 		return "", fmt.Errorf("Did not find customer")
 	}
 
-	f, err := os.ReadFile("invoice.tpl")
+	f, err := os.ReadFile(tplFile)
 	if err != nil {
 		return "", fmt.Errorf("Error reading file: %v", err)
 	}
