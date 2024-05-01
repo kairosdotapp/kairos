@@ -5,10 +5,23 @@ Git. This makes it easy for your team to log their time using their standard
 tools (Git/Text Editor) and then generate invoices and other reports using
 [hledger](https://hledger.org/).
 
-# Invoice CLI
+## Features
 
-CLI tool to generate invoices from a hledger
-[timedot file](https://hledger.org/dev/hledger.html#timedot).
+- time is logged in [timedot](https://hledger.org/dev/hledger.html#timedot)
+  format (easy and convenient for developers)
+- supports multiple projects/activities (you can track at any granularity your
+  activities)
+- multi-user support with different rates for different users
+- full power of hledger for generating reports and integration with your
+  accounting system.
+
+## Example
+
+See the [example](example/) for information on how to use this tool.
+
+Example invoice:
+
+<img src="example/kairos-example-invoice.png" width="400">
 
 ## Requirements
 
@@ -20,11 +33,3 @@ CLI tool to generate invoices from a hledger
 - generate an invoice for a particular month
 - generate ledger entries
 - weekly status reports
-
-## Example
-
-See the [example](example/) for information on how to use this tool.
-
-Example invoice:
-
-<img src="example/kairos-example-invoice.png" width="400">
