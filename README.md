@@ -15,3 +15,9 @@ CLI tool to generate invoices from a hledger
 - generate an invoice for a particular month
 - generate ledger entries
 - weekly status reports
+
+## Example
+
+See the [example](example/) for information on how to use this tool.
+
+![example invoice](example/kairos-example-invoice.png)
