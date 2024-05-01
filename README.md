@@ -1,3 +1,5 @@
+![logo](logo.png)
+
 # Invoice CLI
 
 CLI tool to generate invoices from a hledger
