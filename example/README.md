@@ -16,7 +16,7 @@ These can be printed or copy/pasted into an email.
 The following files are required:
 
 - [`rates.csv`](rates.csv): defines rates for customers/projects/tasks/users.
-  The shortest match with the timelog entires is used.
+  The longest match with the timelog entires is used.
 - [`customers.csv`](customers.csv): customer information
 - An invoice template ([example](../invoice.tpl)): Template that defines how the
   invoice looks. This can be modifiy to include/remove columns, change logo,
