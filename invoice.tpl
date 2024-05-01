@@ -11,17 +11,17 @@
     <body>
         <header>
             <br/>
-            <img src="http://bec-systems.com/site/wp-content/uploads/2020/03/bec_logo_blue_146x48-1.png"/>
+            <img src="https://raw.githubusercontent.com/kairosdotapp/kairos/main/logo.png"/>
         </header>
         <main>
             <section>
                 <div style="display: flex;">
                     <div>
-                        BEC Systems
+                        K Consulting
                         <br/>
-                        15000 Warwick Rd.
+                        2342 West Ave.
                         <br/>
-                        Marshallville, OH  44645
+                        City, ST  12345
                         <br/>
                     </div>
                 </div>
@@ -59,7 +59,8 @@
                 Total hours: <b>{{ .Hours }}</b>
             </section>
             <section>
-                <table class="table-auto">
+                <table>
+                    <col style="width: 17%;">
                     <thead>
                         <tr>
                             <th>Date</th>
