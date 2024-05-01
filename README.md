@@ -3,7 +3,7 @@
 Kairos is a tool that generates beautiful invoices from time log files stored in
 Git. This makes it easy for your team to log their time using their standard
 tools (Git/Text Editor) and then generate HTML invoices using a simple template.
-Advanced reports can be genberated using [hledger](https://hledger.org/).
+Advanced reports can be generated using [hledger](https://hledger.org/).
 
 I wrote this tool after looking at many other options and concluding there has
 to be a better way. Having recently switched to hledger command line accounting,
