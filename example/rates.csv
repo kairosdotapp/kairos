@@ -1,0 +1,6 @@
+account,user,rate
+time:cust:abcorp,,155
+time:cust:abcorp:nc,,0
+time:cust:abcorp:travel,,77.5
+time:cust:xyzinc,,175
+time:cust:xyzinc,fred,255

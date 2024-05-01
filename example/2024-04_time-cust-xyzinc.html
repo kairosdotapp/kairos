@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Invoice</title>
+        <meta name="keywords" content="invoice" />
+        <meta name="description" content="foo"/>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css"/>
+    </head>
+    <body>
+        <header>
+            <br/>
+            <img src="https://raw.githubusercontent.com/kairosdotapp/kairos/main/logo.png"/>
+        </header>
+        <main>
+            <section>
+                <div style="display: flex;">
+                    <div>
+                        K Consulting
+                        <br/>
+                        2342 West Ave.
+                        <br/>
+                        City, ST  12345
+                        <br/>
+                    </div>
+                </div>
+                <br/>
+                <div style="display: flex; justify-content: space-between">
+                    <b>Invoice #1003</b>
+                    2024-05-01
+                </div>
+                <br/>
+                To:
+                <br/>
+                XYZ Inc.
+                <br/>
+                2912 North St.
+                <br/>
+                Boise, ID 29192
+            </section>
+            <section>
+                <table class="table-auto">
+                    <thead>
+                        <tr>
+                            <th>Project</th>
+                            <th>Hours</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>default</td>
+                            <td>4.25</td>
+                        </tr>
+                    </tbody>
+                </table>
+                Total hours: <b>4.25</b>
+            </section>
+            <section>
+                <table>
+                    <col style="width: 17%;">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Who</th>
+                            <th>Project</th>
+                            <th>Description</th>
+                            <th>Hours</th>
+                            <th>Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024-04-02</td>
+                            <td>joe</td>
+                            <td></td>
+                            <td>
+                                <ul>
+                                    <li>create schematic</li>
+                                </ul>
+                            </td>
+                            <td>3.25</td>
+                            <td>$568.75</td>
+                        </tr>
+                        <tr>
+                            <td>2024-04-18</td>
+                            <td>fred</td>
+                            <td></td>
+                            <td>
+                                <ul>
+                                    <li>develop state machine</li>
+                                    <li>debug irq response</li>
+                                </ul>
+                            </td>
+                            <td>1</td>
+                            <td>$255</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/>
+                <br/>
+                <b>Amount due: $823.75</b>
+                <br/>
+            </section>
+        </main>
+        <footer>
+            <b>Thank you for your valued business!</b>
+            <br/>
+            <br/>
+        </footer>
+    </body>
+</html>

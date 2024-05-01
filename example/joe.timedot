@@ -1,0 +1,17 @@
+2024-04-01
+time:cust:abcorp:dev       4
+  # create billing page
+  # debug summary issue
+time:cust:abcorp:support   2.25
+  # assist with customer issue
+time:cust:abcorp:travel    2
+  # travel to customer site
+
+2024-04-02
+time:cust:abcorp:dev       1.25
+  # create sorting algorithm
+time:cust:abcorp:nc        2.75
+  # research algorithms
+time:cust:xyzinc           3.25
+  # create schematic
+

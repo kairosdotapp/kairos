@@ -1,0 +1,3 @@
+account,name,address,city,state,zip
+time:cust:abcorp,AB Corp,1234 West Ave,Columbus,OH,12912
+time:cust:xyzinc,XYZ Inc.,2912 North St.,Boise,ID,29192

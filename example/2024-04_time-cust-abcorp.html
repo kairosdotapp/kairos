@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Invoice</title>
+        <meta name="keywords" content="invoice" />
+        <meta name="description" content="foo"/>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css"/>
+    </head>
+    <body>
+        <header>
+            <br/>
+            <img src="https://raw.githubusercontent.com/kairosdotapp/kairos/main/logo.png"/>
+        </header>
+        <main>
+            <section>
+                <div style="display: flex;">
+                    <div>
+                        K Consulting
+                        <br/>
+                        2342 West Ave.
+                        <br/>
+                        City, ST  12345
+                        <br/>
+                    </div>
+                </div>
+                <br/>
+                <div style="display: flex; justify-content: space-between">
+                    <b>Invoice #1002</b>
+                    2024-05-01
+                </div>
+                <br/>
+                To:
+                <br/>
+                AB Corp
+                <br/>
+                1234 West Ave
+                <br/>
+                Columbus, OH 12912
+            </section>
+            <section>
+                <table class="table-auto">
+                    <thead>
+                        <tr>
+                            <th>Project</th>
+                            <th>Hours</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>dev</td>
+                            <td>5.25</td>
+                        </tr>
+                        <tr>
+                            <td>support</td>
+                            <td>2.25</td>
+                        </tr>
+                        <tr>
+                            <td>travel</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>no charge (nc)</td>
+                            <td>2.75</td>
+                        </tr>
+                        <tr>
+                            <td>default</td>
+                            <td>3.25</td>
+                        </tr>
+                    </tbody>
+                </table>
+                Total hours: <b>15.5</b>
+            </section>
+            <section>
+                <table>
+                    <col style="width: 17%;">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Who</th>
+                            <th>Project</th>
+                            <th>Description</th>
+                            <th>Hours</th>
+                            <th>Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024-04-01</td>
+                            <td>joe</td>
+                            <td>dev</td>
+                            <td>
+                                <ul>
+                                    <li>create billing page</li>
+                                    <li>debug summary issue</li>
+                                </ul>
+                            </td>
+                            <td>4</td>
+                            <td>$620</td>
+                        </tr>
+                        <tr>
+                            <td>2024-04-01</td>
+                            <td>joe</td>
+                            <td>support</td>
+                            <td>
+                                <ul>
+                                    <li>assist with customer issue</li>
+                                </ul>
+                            </td>
+                            <td>2.25</td>
+                            <td>$348.75</td>
+                        </tr>
+                        <tr>
+                            <td>2024-04-01</td>
+                            <td>joe</td>
+                            <td>travel</td>
+                            <td>
+                                <ul>
+                                    <li>travel to customer site</li>
+                                </ul>
+                            </td>
+                            <td>2</td>
+                            <td>$155</td>
+                        </tr>
+                        <tr>
+                            <td>2024-04-02</td>
+                            <td>joe</td>
+                            <td>dev</td>
+                            <td>
+                                <ul>
+                                    <li>create sorting algorithm</li>
+                                </ul>
+                            </td>
+                            <td>1.25</td>
+                            <td>$193.75</td>
+                        </tr>
+                        <tr>
+                            <td>2024-04-02</td>
+                            <td>joe</td>
+                            <td>nc</td>
+                            <td>
+                                <ul>
+                                    <li>research algorithms</li>
+                                </ul>
+                            </td>
+                            <td>2.75</td>
+                            <td>$0</td>
+                        </tr>
+                        <tr>
+                            <td>2024-04-18</td>
+                            <td>fred</td>
+                            <td></td>
+                            <td>
+                                <ul>
+                                    <li>Architecture diagram</li>
+                                </ul>
+                            </td>
+                            <td>3.25</td>
+                            <td>$828.75</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/>
+                <br/>
+                <b>Amount due: $2146.25</b>
+                <br/>
+            </section>
+        </main>
+        <footer>
+            <b>Thank you for your valued business!</b>
+            <br/>
+            <br/>
+        </footer>
+    </body>
+</html>
