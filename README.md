@@ -27,4 +27,4 @@ See the [example](example/) for information on how to use this tool.
 
 Example invoice:
 
-![example invoice](example/kairos-example-invoice.png)
+![example invoice](example/kairos-example-invoice.png =400x300)
