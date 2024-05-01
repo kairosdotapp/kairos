@@ -22,4 +22,4 @@ The following files are required:
 - timelog files ([fred](fred.timedot), [joe](joe.timedot)): time log files in
   [timedot](https://hledger.org/dev/hledger.html#timedot) format.
 
-![example invoice](example/kairos-example-invoice.png)
+![example invoice](kairos-example-invoice.png)

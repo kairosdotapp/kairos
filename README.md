@@ -1,5 +1,10 @@
 ![logo](logo.png)
 
+Kairos is a tool that generates beautiful invoices from time log files stored in
+Git. This makes it easy for your team to log their time using their standard
+tools (Git/Text Editor) and then generate invoices and other reports using
+[hledger](https://hledger.org/).
+
 # Invoice CLI
 
 CLI tool to generate invoices from a hledger
@@ -19,5 +24,7 @@ CLI tool to generate invoices from a hledger
 ## Example
 
 See the [example](example/) for information on how to use this tool.
+
+Example invoice:
 
 ![example invoice](example/kairos-example-invoice.png)
