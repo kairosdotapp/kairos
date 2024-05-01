@@ -14,7 +14,7 @@ func TestInvoice(t *testing.T) {
 	start, _ := time.Parse(time.DateOnly, "2023-01-01")
 	end := start.AddDate(0, 1, 0).Add(-time.Second)
 
-	invoice, err := invoice(1055, entries, custs, acnt, start, end, "")
+	invoice, err := invoice(1055, entries, custs, acnt, start, end, "", "invoice.tpl")
 	if err != nil {
 		t.Fatal("Error creating invoice: ", err)
 	}
