@@ -24,4 +24,4 @@ The following files are required:
 
 example invoice:
 
-![example invoice](kairos-example-invoice.png)
+<img src="kairos-example-invoice.png" width="400">
