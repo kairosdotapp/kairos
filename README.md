@@ -5,6 +5,10 @@ Git. This makes it easy for your team to log their time using their standard
 tools (Git/Text Editor) and then generate HTML invoices using a simple template.
 Advanced reports can be genberated using [hledger](https://hledger.org/).
 
+I wrote this tool after looking at many other options and concluding there has
+to be a better way. Having recently switched to hledger command line accounting,
+this seemed like a logical step. It is simple, fast to run, and easy to customize.
+
 ## Features
 
 - time is logged in [timedot](https://hledger.org/dev/hledger.html#timedot)
