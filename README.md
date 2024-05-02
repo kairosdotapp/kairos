@@ -1,5 +1,6 @@
 ![logo](logo.png)
 
+Do you need a tool to track time for a distributed team and easily generate invoices? 
 Kairos is a tool that generates beautiful invoices from time log files stored in
 Git. This makes it easy for your team to log their time using their standard
 tools (Git/Text Editor) and then generate HTML invoices using a simple template.
@@ -8,6 +9,10 @@ Advanced reports can be generated using [hledger](https://hledger.org/).
 I wrote this tool after looking at many other options and concluding there has
 to be a better way. Having recently switched to hledger command line accounting,
 this seemed like a logical step. It is simple, fast to run, and easy to customize.
+
+Even if you don't do hourly billing, there are many benefits to tracking how time 
+is spent. If you don't measure it, it isn't easy to improve it -- this is 
+especially important for time management.
 
 ## Features
 
