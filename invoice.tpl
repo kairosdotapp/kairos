@@ -92,8 +92,10 @@
                 </table>
                 <br/>
                 <br/>
+                {{- if .Expenses }}
                 <b>Time subtotal: ${{ .Cost }}</b>
                 <br/>
+                {{- end }}
             </section>
             {{- if .Expenses }}
             <section>
@@ -120,9 +122,10 @@
                     </tbody>
                 </table>
                 <br/>
-                <b>Expense subtotal: ${{ printf "%.2f" .ExpenseTotal }}</b>
+                <b>Supplies subtotal: ${{ printf "%.2f" .ExpenseTotal }}</b>
                 <br/>
                 <br/>
+                <hr/>
                 <b>Total amount due: ${{ printf "%.2f" .TotalWithExpenses }}</b>
                 <br/>
             </section>
