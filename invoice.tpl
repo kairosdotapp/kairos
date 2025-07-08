@@ -92,9 +92,46 @@
                 </table>
                 <br/>
                 <br/>
-                <b>Amount due: ${{ .Cost }}</b>
+                <b>Time subtotal: ${{ .Cost }}</b>
                 <br/>
             </section>
+            {{- if .Expenses }}
+            <section>
+                <h3>Supplies</h3>
+                <table>
+                    <col style="width: 17%;">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Vendor</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{- range $expense := .Expenses }}
+                        <tr>
+                            <td>{{ $expense.Date.Format "2006-01-02" }}</td>
+                            <td>{{ $expense.Vendor }}</td>
+                            <td>{{ $expense.Description }}</td>
+                            <td>${{ printf "%.2f" $expense.Amount }}</td>
+                        </tr>
+                        {{- end }}
+                    </tbody>
+                </table>
+                <br/>
+                <b>Expense subtotal: ${{ printf "%.2f" .ExpenseTotal }}</b>
+                <br/>
+                <br/>
+                <b>Total amount due: ${{ printf "%.2f" .TotalWithExpenses }}</b>
+                <br/>
+            </section>
+            {{- else }}
+            <section>
+                <b>Total amount due: ${{ .Cost }}</b>
+                <br/>
+            </section>
+            {{- end }}
         </main>
         <footer>
             <b>Thank you for your valued business!</b>
