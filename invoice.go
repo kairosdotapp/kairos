@@ -16,6 +16,9 @@ type invoiceData struct {
 	Cost          float32
 	Customer      customer
 	ProjectTotals projectTotals
+	Expenses      []Expense
+	ExpenseTotal  float64
+	TotalWithExpenses float64
 }
 
 type invoiceEntry struct {
@@ -58,6 +61,22 @@ func invoice(number int, es entries, custs customers, account string, start, end
 		return "", fmt.Errorf("Did not find customer")
 	}
 
+	// Load expenses from expenses.csv
+	var expenses []Expense
+	var expenseTotal float64
+	
+	expenseTracker, err := NewExpenseTracker("expenses.csv")
+	if err == nil {
+		// If expenses.csv exists, get expenses for this customer and date range
+		customerExpenses, err := expenseTracker.GetExpensesForTimeRangeAndCustomer(start, end, cust.Account)
+		if err == nil {
+			expenses = customerExpenses
+			for _, expense := range expenses {
+				expenseTotal += expense.Amount
+			}
+		}
+	}
+
 	f, err := os.ReadFile(tplFile)
 	if err != nil {
 		return "", fmt.Errorf("Error reading file: %v", err)
@@ -76,14 +95,20 @@ func invoice(number int, es entries, custs customers, account string, start, end
 		date = time.Now().Format(time.DateOnly)
 	}
 
+	timeCost := accountEntries.cost()
+	totalWithExpenses := float64(timeCost) + expenseTotal
+	
 	data := invoiceData{
 		Number:        number,
 		Date:          date,
 		Customer:      cust,
 		Entries:       newInvoiceEntries(accountEntries),
-		Cost:          accountEntries.cost(),
+		Cost:          timeCost,
 		Hours:         accountEntries.hours(),
 		ProjectTotals: projectTotals,
+		Expenses:      expenses,
+		ExpenseTotal:  expenseTotal,
+		TotalWithExpenses: totalWithExpenses,
 	}
 
 	err = t.Execute(&ret, data)
