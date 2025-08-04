@@ -68,7 +68,11 @@ func invoice(number int, es entries, custs customers, account string, start, end
 	expenseTracker, err := NewExpenseTracker("expenses.csv")
 	if err == nil {
 		// If expenses.csv exists, get expenses for this customer and date range
-		customerExpenses, err := expenseTracker.GetExpensesForTimeRangeAndCustomer(start, end, cust.Account)
+		// Extract customer name from account format (time:cust:CustA -> CustA)
+		customerParts := strings.Split(cust.Account, ":")
+		customerName := customerParts[len(customerParts)-1]
+		
+		customerExpenses, err := expenseTracker.GetExpensesForTimeRangeAndCustomer(start, end, customerName)
 		if err == nil {
 			expenses = customerExpenses
 			for _, expense := range expenses {
