@@ -64,9 +64,9 @@ func (et *ExpenseTracker) GetExpensesForTimeRangeAndCustomer(startDate, endDate 
 	var filteredExpenses []Expense
 
 	for _, expense := range et.expenses {
-		if expense.Customer == customer && 
-		   (expense.Date.Equal(startDate) || expense.Date.After(startDate)) &&
-		   (expense.Date.Equal(endDate) || expense.Date.Before(endDate)) {
+		if expense.Customer == customer &&
+			(expense.Date.Equal(startDate) || expense.Date.After(startDate)) &&
+			(expense.Date.Equal(endDate) || expense.Date.Before(endDate)) {
 			filteredExpenses = append(filteredExpenses, expense)
 		}
 	}
