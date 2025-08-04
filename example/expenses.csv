@@ -1,9 +1,9 @@
 Date,Customer,Vendor,Description,Amount
-2024-04-15,time:cust:xyzinc,Digikey,Development board,125.50
-2025-06-12,time:cust:abcorp,Digikey,B-STLINK-VOLT Level translater for STM32 programming,131.11
-2025-06-23,time:cust:xyzinc,Digikey,JST connectors,43.52
-2025-06-24,time:cust:xyzinc,Digikey,fets and cap,20.19
-2025-06-24,time:cust:xyzinc,Mouser,12-chan build parts,421.4
-2025-06-30,time:cust:xyzinc,Digikey,30-pin FPC cables,41.31
-2025-07-02,time:cust:xyzinc,Digikey,JST connectors,41.79
-2025-07-04,time:cust:xyzinc,Digikey,heat shrink tubing,39.85
+2024-04-15,xyzinc,Digikey,Development board,125.50
+2025-06-12,abcorp,Digikey,B-STLINK-VOLT Level translater for STM32 programming,131.11
+2025-06-23,xyzinc,Digikey,JST connectors,43.52
+2025-06-24,xyzinc,Digikey,fets and cap,20.19
+2025-06-24,xyzinc,Mouser,12-chan build parts,421.4
+2025-06-30,xyzinc,Digikey,30-pin FPC cables,41.31
+2025-07-02,xyzinc,Digikey,JST connectors,41.79
+2025-07-04,xyzinc,Digikey,heat shrink tubing,39.85
