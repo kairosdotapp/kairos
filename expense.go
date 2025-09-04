@@ -61,6 +61,7 @@ func NewExpenseTracker(csvFilePath string) (*ExpenseTracker, error) {
 }
 
 func (et *ExpenseTracker) GetExpensesForTimeRangeAndCustomer(startDate, endDate time.Time, customer string) ([]Expense, error) {
+	fmt.Println("Get expensese for ", customer)
 	var filteredExpenses []Expense
 
 	for _, expense := range et.expenses {
