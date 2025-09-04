@@ -9,15 +9,15 @@ import (
 )
 
 type invoiceData struct {
-	Date          string
-	Number        int
-	Entries       invoiceEntries
-	Hours         float32
-	Cost          float32
-	Customer      customer
-	ProjectTotals projectTotals
-	Expenses      []Expense
-	ExpenseTotal  float64
+	Date              string
+	Number            int
+	Entries           invoiceEntries
+	Hours             float32
+	Cost              float32
+	Customer          customer
+	ProjectTotals     projectTotals
+	Expenses          []Expense
+	ExpenseTotal      float64
 	TotalWithExpenses float64
 }
 
@@ -64,14 +64,17 @@ func invoice(number int, es entries, custs customers, account string, start, end
 	// Load expenses from expenses.csv
 	var expenses []Expense
 	var expenseTotal float64
-	
+
 	expenseTracker, err := NewExpenseTracker("expenses.csv")
-	if err == nil {
+	if err != nil {
+		return "", fmt.Errorf("Error with expense file: %w", err)
+
+	} else {
 		// If expenses.csv exists, get expenses for this customer and date range
 		// Extract customer name from account format (time:cust:CustA -> CustA)
 		customerParts := strings.Split(cust.Account, ":")
 		customerName := customerParts[len(customerParts)-1]
-		
+
 		customerExpenses, err := expenseTracker.GetExpensesForTimeRangeAndCustomer(start, end, customerName)
 		if err == nil {
 			expenses = customerExpenses
@@ -101,17 +104,17 @@ func invoice(number int, es entries, custs customers, account string, start, end
 
 	timeCost := accountEntries.cost()
 	totalWithExpenses := float64(timeCost) + expenseTotal
-	
+
 	data := invoiceData{
-		Number:        number,
-		Date:          date,
-		Customer:      cust,
-		Entries:       newInvoiceEntries(accountEntries),
-		Cost:          timeCost,
-		Hours:         accountEntries.hours(),
-		ProjectTotals: projectTotals,
-		Expenses:      expenses,
-		ExpenseTotal:  expenseTotal,
+		Number:            number,
+		Date:              date,
+		Customer:          cust,
+		Entries:           newInvoiceEntries(accountEntries),
+		Cost:              timeCost,
+		Hours:             accountEntries.hours(),
+		ProjectTotals:     projectTotals,
+		Expenses:          expenses,
+		ExpenseTotal:      expenseTotal,
 		TotalWithExpenses: totalWithExpenses,
 	}
 
