@@ -8,6 +8,8 @@ and this project adheres to
 
 ## unreleased
 
+## [0.0.2] - 2025-10-06
+
 - for each invoice, look for expenses in expenses.csv for that month or date
   range, add a table at the bottom of the invoice, provide a supplies subtotal,
   and add time and expense for an invoice total. If there are no expenses, the
