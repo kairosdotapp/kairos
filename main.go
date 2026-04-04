@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
 	"time"
@@ -92,7 +93,11 @@ func runInvoice(args []string) error {
 	var userLogFiles []string
 
 	if *flagUser != "" {
-		userLogFiles = []string{*flagUser + ".timedot"}
+		// Support both "user.timedot" and "user-YYYY.timedot" naming
+		userLogFiles, err = filepath.Glob(*flagUser + "*.timedot")
+		if err != nil {
+			return fmt.Errorf("Error searching for timedot files: %v", err)
+		}
 	} else {
 		userLogFiles, err = filepath.Glob("*.timedot")
 		if err != nil {
@@ -115,6 +120,8 @@ func runInvoice(args []string) error {
 		}
 
 		user := strings.TrimSuffix(u, ".timedot")
+		// Strip -YYYY suffix for year-split files (e.g. "cbrake-2026" -> "cbrake")
+		user = regexp.MustCompile(`-\d{4}$`).ReplaceAllString(user, "")
 
 		err = e.populateCost(rates, user)
 		if err != nil {
